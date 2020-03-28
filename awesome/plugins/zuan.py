@@ -8,6 +8,7 @@ from nonebot import on_command, CommandSession
 async def curse(session: CommandSession):
     # 从会话状态（session.state）中获取成员名称（member），如果当前不存在，则询问用户
     member = session.get('member', prompt='你想喷谁呢？')
+    print(member)
     # 获取城市的天气预报
     curse_report = await get_curse(member)
     # 向用户发送天气预报
@@ -43,4 +44,5 @@ async def get_curse(member: str) -> str:
     res = requests.get(api_url)
     # 这里简单返回一个字符串
     # 实际应用中，这里应该调用返回真实数据的天气 API，并拼接成天气预报内容
+    print(res.text)
     return res.text
