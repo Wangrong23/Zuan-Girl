@@ -38,7 +38,6 @@ async def _(session: CommandSession):
     # 如果当前正在向用户询问更多信息（例如本例中的要查询的城市），且用户输入有效，则放入会话状态
     session.state[session.current_key] = stripped_arg
 
-
 async def get_curse(member: str) -> str:
     api_url = 'https://nmsl.shadiao.app/api.php?level=min&lang=zh_cn'
     res = requests.get(api_url)
