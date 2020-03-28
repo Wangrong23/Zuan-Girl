@@ -4,7 +4,7 @@ from nonebot import on_command, CommandSession
 
 # on_command 装饰器将函数声明为一个命令处理器
 # 这里 喷 为命令的名字，同时允许使用别名「喷一下」「给我喷」
-@on_command('curse', aliases=('喷一下', '给我喷'))
+@on_command('喷', aliases=('喷一下', '给我喷'))
 async def curse(session: CommandSession):
     # 从会话状态（session.state）中获取成员名称（member），如果当前不存在，则询问用户
     member = session.get('member', prompt='你想喷谁呢？')
