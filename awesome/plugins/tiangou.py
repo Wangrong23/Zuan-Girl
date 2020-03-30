@@ -5,7 +5,7 @@ from nonebot import on_command, CommandSession
 
 # on_command 装饰器将函数声明为一个命令处理器
 # 这里 舔 为命令的名字，同时允许使用别名「舔一下」「给我舔」
-@on_command('[CQ:at,qq=2461784356] 舔', aliases=('[CQ:at,qq=2461784356] 舔一下', '[CQ:at,qq=2461784356] 给我舔'))
+@on_command('舔', aliases=('舔一下', '给我舔'))
 async def lick(session: CommandSession):
     # 从会话状态（session.state）中获取成员名称（member），如果当前不存在，则询问用户
     member = session.get('member', prompt='你想舔谁呢？')
@@ -27,9 +27,9 @@ async def _(session: CommandSession):
         if stripped_arg:
             # 第一次运行参数不为空，意味着用户直接将城市名跟在命令名后面，作为参数传入
             # 例如用户可能发送了：天气 南京
-            #  [CQ:at,qq=2461784356] 舔一下 [CQ:at,qq=1301236461]
+            # 舔一下 [CQ:at,qq=1301236461]
             pattern = re.compile('[1-9]([0-9]{5,11})')
-            session.state['member'] = pattern.search(stripped_arg)[1]
+            session.state['member'] = pattern.search(stripped_arg)[0]
         return
 
     if not stripped_arg:
