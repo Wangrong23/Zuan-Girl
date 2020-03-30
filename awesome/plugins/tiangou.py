@@ -24,9 +24,12 @@ async def a_lick(session: CommandSession):
 # 命令解析器用于将用户输入的参数解析成命令真正需要的数据
 @lick.args_parser
 async def _(session: CommandSession):
+
+    print('session',session)
+
     # 去掉消息首尾的空白符
     stripped_arg = session.current_arg_text.strip()
-    print(stripped_arg)
+    print('stripped_arg',stripped_arg)
 
     # 该命令第一次运行（第一次进入命令会话）
     if stripped_arg:
@@ -36,8 +39,6 @@ async def _(session: CommandSession):
         pattern = re.compile('[1-9]([0-9]{5,11})')
         print(pattern.search(stripped_arg))
         session.state['member'] = pattern.search(stripped_arg)[0]
-        return
-
     else:
         # 用户没有发送有效的城市名称（而是发送了空白字符），则提示重新输入
         # 这里 session.pause() 将会发送消息并暂停当前会话（该行后面的代码不会被运行）
