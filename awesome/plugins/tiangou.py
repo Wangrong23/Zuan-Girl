@@ -28,7 +28,7 @@ async def _(session: CommandSession):
             # 第一次运行参数不为空，意味着用户直接将城市名跟在命令名后面，作为参数传入
             # 例如用户可能发送了：天气 南京
             #  [CQ:at,qq=2461784356] 舔一下 [CQ:at,qq=1301236461]
-            pattern = re.compile(ur'[1-9]([0-9]{5,11})')
+            pattern = re.compile('[1-9]([0-9]{5,11})')
             session.state['member'] = pattern.search(stripped_arg)[1]
         return
 
