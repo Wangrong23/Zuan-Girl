@@ -8,7 +8,6 @@ from nonebot import on_command, CommandSession
 async def curse(session: CommandSession):
     # 从会话状态（session.state）中获取成员名称（member），如果当前不存在，则询问用户
     member = session.get('member', prompt='你想喷谁呢？')
-    print(member)
     # 获取城市的天气预报
     curse_report = await get_curse(member)
     # 向用户发送天气预报
@@ -33,7 +32,7 @@ async def _(session: CommandSession):
     if not stripped_arg:
         # 用户没有发送有效的城市名称（而是发送了空白字符），则提示重新输入
         # 这里 session.pause() 将会发送消息并暂停当前会话（该行后面的代码不会被运行）
-        session.pause('要查询的城市名称不能为空呢，请重新输入')
+        session.pause('')
 
     # 如果当前正在向用户询问更多信息（例如本例中的要查询的城市），且用户输入有效，则放入会话状态
     session.state[session.current_key] = stripped_arg
@@ -43,5 +42,4 @@ async def get_curse(member: str) -> str:
     res = requests.get(api_url)
     # 这里简单返回一个字符串
     # 实际应用中，这里应该调用返回真实数据的天气 API，并拼接成天气预报内容
-    print(res.text)
-    return res.text
+    return 'str ' + res.text
