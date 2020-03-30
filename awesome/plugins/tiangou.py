@@ -14,6 +14,11 @@ async def lick(session: CommandSession):
     # 向用户发送天气预报
     await session.send(lick_report)
 
+@on_command('舔狗语录', aliases=('彩虹屁', '来点舔狗语录' , '来点彩虹屁'))
+async def a_lick(session: CommandSession):
+    api_url = 'https://chp.shadiao.app/api.php'
+    res = requests.get(api_url)
+    await session.send(res.text)
 
 # lick.args_parser 装饰器将函数声明为 lick 命令的参数解析器
 # 命令解析器用于将用户输入的参数解析成命令真正需要的数据
