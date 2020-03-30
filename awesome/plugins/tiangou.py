@@ -1,10 +1,11 @@
 import requests
+import re
 from nonebot import on_command, CommandSession
 
 
 # on_command 装饰器将函数声明为一个命令处理器
 # 这里 舔 为命令的名字，同时允许使用别名「舔一下」「给我舔」
-@on_command('舔', aliases=('舔一下', '给我舔'))
+@on_command('[CQ:at,qq=2461784356] 舔', aliases=('[CQ:at,qq=2461784356] 舔一下', '[CQ:at,qq=2461784356] 给我舔'))
 async def lick(session: CommandSession):
     # 从会话状态（session.state）中获取成员名称（member），如果当前不存在，则询问用户
     member = session.get('member', prompt='你想舔谁呢？')
@@ -26,13 +27,15 @@ async def _(session: CommandSession):
         if stripped_arg:
             # 第一次运行参数不为空，意味着用户直接将城市名跟在命令名后面，作为参数传入
             # 例如用户可能发送了：天气 南京
-            session.state['member'] = stripped_arg
+            #  [CQ:at,qq=2461784356] 舔一下 [CQ:at,qq=1301236461]
+            pattern = re.compile(ur'[1-9]([0-9]{5,11})')
+            session.state['member'] = pattern.search(stripped_arg)[1]
         return
 
     if not stripped_arg:
         # 用户没有发送有效的城市名称（而是发送了空白字符），则提示重新输入
         # 这里 session.pause() 将会发送消息并暂停当前会话（该行后面的代码不会被运行）
-        session.pause('')
+        session.pause('你想舔谁呢？')
 
     # 如果当前正在向用户询问更多信息（例如本例中的要查询的城市），且用户输入有效，则放入会话状态
     session.state[session.current_key] = stripped_arg
@@ -40,4 +43,4 @@ async def _(session: CommandSession):
 async def get_lick(member: str) -> str:
     api_url = 'https://chp.shadiao.app/api.php'
     res = requests.get(api_url)
-    return f'{member} {res.text}'
+    return f'[CQ:at,qq={member}] {res.text}'
