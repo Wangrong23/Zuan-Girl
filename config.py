@@ -2,5 +2,5 @@ from nonebot.default_config import *
 
 SUPERUSERS = {1902167838}
 COMMAND_START = {'', '/', '!', '／', '！'}
-HOST = '127.0.0.1'
+HOST = '0.0.0.0'
 PORT = 6800
