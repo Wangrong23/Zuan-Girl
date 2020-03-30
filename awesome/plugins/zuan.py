@@ -42,4 +42,4 @@ async def get_curse(member: str) -> str:
     res = requests.get(api_url)
     # 这里简单返回一个字符串
     # 实际应用中，这里应该调用返回真实数据的天气 API，并拼接成天气预报内容
-    return str+ '' + res.text
+    return f'{member} {res.text}'
