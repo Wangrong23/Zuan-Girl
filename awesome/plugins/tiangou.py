@@ -11,8 +11,7 @@ api_url = 'https://chp.shadiao.app/api.php'
 async def lick(session: CommandSession):
     # 从会话状态（session.state）中获取成员名称（member），如果当前不存在，则询问用户
     member = session.get('member', prompt='你想舔谁呢？')
-   
-    text = await requests.get(api_url).text
+    text = await get_lick_text()
     await session.send(
                 render_expression(
                     ('[CQ:at,qq={at_id}] {text}'),
@@ -23,8 +22,8 @@ async def lick(session: CommandSession):
 
 @on_command('舔狗语录', aliases=('彩虹屁', '来点舔狗语录' , '来点彩虹屁'))
 async def a_lick(session: CommandSession):
-    res = await requests.get(api_url)
-    await session.send(res.text)
+    text = await get_lick_text()
+    await session.send(text)
 
 # lick.args_parser 装饰器将函数声明为 lick 命令的参数解析器
 # 命令解析器用于将用户输入的参数解析成命令真正需要的数据
@@ -60,3 +59,7 @@ async def _(session: CommandSession):
 
     # 如果当前正在向用户询问更多信息（例如本例中的要查询的城市），且用户输入有效，则放入会话状态
     session.state[session.current_key] = stripped_arg
+
+async def get_lick_text():
+    res = requests.get(api_url)
+    return res.text
