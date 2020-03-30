@@ -26,17 +26,17 @@ async def a_lick(session: CommandSession):
 async def _(session: CommandSession):
     # 去掉消息首尾的空白符
     stripped_arg = session.current_arg_text.strip()
+    print(stripped_arg)
 
-    if session.is_first_run:
-        # 该命令第一次运行（第一次进入命令会话）
-        if stripped_arg:
-            # 第一次运行参数不为空，意味着用户直接将城市名跟在命令名后面，作为参数传入
-            # 例如用户可能发送了：天气 南京
-            # 舔一下 [CQ:at,qq=1301236461]
-            pattern = re.compile('[1-9]([0-9]{5,11})')
-            print(pattern.search(stripped_arg))
-            session.state['member'] = pattern.search(stripped_arg)[0]
-        return
+    # 该命令第一次运行（第一次进入命令会话）
+    if stripped_arg:
+        # 第一次运行参数不为空，意味着用户直接将城市名跟在命令名后面，作为参数传入
+        # 例如用户可能发送了：天气 南京
+        # 舔一下 [CQ:at,qq=1301236461]
+        pattern = re.compile('[1-9]([0-9]{5,11})')
+        print(pattern.search(stripped_arg))
+        session.state['member'] = pattern.search(stripped_arg)[0]
+    return
 
     if not stripped_arg:
         # 用户没有发送有效的城市名称（而是发送了空白字符），则提示重新输入
