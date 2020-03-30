@@ -29,6 +29,7 @@ async def _(session: CommandSession):
             # 例如用户可能发送了：天气 南京
             # 舔一下 [CQ:at,qq=1301236461]
             pattern = re.compile('[1-9]([0-9]{5,11})')
+            print(pattern.search(stripped_arg))
             session.state['member'] = pattern.search(stripped_arg)[0]
         return
 
