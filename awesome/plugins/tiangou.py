@@ -36,9 +36,9 @@ async def _(session: CommandSession):
         pattern = re.compile('[1-9]([0-9]{5,11})')
         print(pattern.search(stripped_arg))
         session.state['member'] = pattern.search(stripped_arg)[0]
-    return
+        return
 
-    if not stripped_arg:
+    else:
         # 用户没有发送有效的城市名称（而是发送了空白字符），则提示重新输入
         # 这里 session.pause() 将会发送消息并暂停当前会话（该行后面的代码不会被运行）
         session.pause('你想舔谁呢？')
