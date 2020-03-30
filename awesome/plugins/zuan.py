@@ -16,7 +16,7 @@ async def curse(session: CommandSession):
 
 @on_command('祖安语录', aliases=('祖安话', '来点祖安语录'))
 async def a_curse(session: CommandSession):
-    api_url = 'https://nmsl.shadiao.app/api.php?level=min&lang=zh_cn'
+    api_url = 'https://nmsl.shadiao.app/api.php?lang=zh_cn'
     res = requests.get(api_url)
     await session.send(res.text)
 
