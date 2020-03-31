@@ -48,7 +48,6 @@ async def _(session: CommandSession):
 
     # 去掉消息首尾的空白符
     stripped_arg = session.current_arg.strip()
-    print('stripped_arg',stripped_arg)
 
     pattern = re.compile('[1-9]([0-9]{4,10})')
     stripped_arg = pattern.search(stripped_arg).group(0)
