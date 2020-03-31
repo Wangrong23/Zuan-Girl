@@ -29,7 +29,7 @@ async def _(session: NLPSession):
     stripped_arg = pattern.search(stripped_msg).group(0)
 
     # 返回意图命令，前两个参数必填，分别表示置信度和意图命令名
-    return IntentCommand(90.0, '喷', current_arg=stripped_arg or '')
+    return IntentCommand(80.0, '喷', current_arg=stripped_arg or '')
 
 
 # on_command 装饰器将函数声明为一个命令处理器
