@@ -1,6 +1,6 @@
 import requests
 import re
-from nonebot import on_command, CommandSession
+from nonebot import on_command,on_natural_language, CommandSession,NLPSession,IntentCommand
 from nonebot.helpers import render_expression
 
 api_url = 'https://chp.shadiao.app/api.php'
