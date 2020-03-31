@@ -44,7 +44,7 @@ async def a_curse(session: CommandSession):
 @hard_curse.args_parser
 async def _(session: CommandSession):
     # 去掉消息首尾的空白符
-    stripped_arg = session.current_arg_text.strip()
+    stripped_arg = session.current_arg.strip()
 
     if session.is_first_run:
         # 该命令第一次运行（第一次进入命令会话）

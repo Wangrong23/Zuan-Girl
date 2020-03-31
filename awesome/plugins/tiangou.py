@@ -33,7 +33,7 @@ async def _(session: CommandSession):
     print('session',session)
 
     # 去掉消息首尾的空白符
-    stripped_arg = session.current_arg_text.strip()
+    stripped_arg = session.current_arg.strip()
     print('stripped_arg',stripped_arg)
 
     if session.is_first_run:
