@@ -1,6 +1,6 @@
 import requests
 import re
-from nonebot import on_command,on_natural_language, CommandSession,NLPSession,IntentCommand
+from nonebot import on_command,on_natural_language, CommandSession, NLPSession, IntentCommand
 from nonebot.helpers import render_expression
 
 api_url = 'https://chp.shadiao.app/api.php'
@@ -13,17 +13,6 @@ api_url = 'https://chp.shadiao.app/api.php'
 async def _(session: NLPSession):
     # 去掉消息首尾的空白符
     stripped_msg = session.msg.strip()
-    # 对消息进行分词和词性标注
-    # words = posseg.lcut(stripped_msg)
-
-    # city = None
-    # # 遍历 posseg.lcut 返回的列表
-    # for word in words:
-    #     # 每个元素是一个 pair 对象，包含 word 和 flag 两个属性，分别表示词和词性
-    #     if word.flag == 'ns':
-    #         # ns 词性表示地名
-    #         city = word.word
-    #         break
 
     pattern = re.compile('[1-9]([0-9]{4,10})')
     stripped_arg = pattern.search(stripped_msg).group(0)
