@@ -36,6 +36,11 @@ async def _(session: CommandSession):
     stripped_arg = session.current_arg.strip()
     print('stripped_arg',stripped_arg)
 
+    # [CQ:at,qq=1902167838]
+
+    pattern = re.compile(ur'[1-9]([0-9]{4,10})')
+    print(pattern.search(stripped_arg))
+
     if session.is_first_run:
         # 该命令第一次运行（第一次进入命令会话）
         if stripped_arg:
