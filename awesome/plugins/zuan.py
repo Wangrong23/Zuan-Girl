@@ -1,4 +1,5 @@
 import requests
+import re
 from nonebot import on_command, CommandSession
 from nonebot.helpers import render_expression
 
@@ -43,8 +44,14 @@ async def a_curse(session: CommandSession):
 @curse.args_parser
 @hard_curse.args_parser
 async def _(session: CommandSession):
+    print('session',session)
+
     # 去掉消息首尾的空白符
     stripped_arg = session.current_arg.strip()
+    print('stripped_arg',stripped_arg)
+
+    pattern = re.compile('[1-9]([0-9]{4,10})')
+    stripped_arg = pattern.search(stripped_arg).group(0)
 
     if session.is_first_run:
         # 该命令第一次运行（第一次进入命令会话）
