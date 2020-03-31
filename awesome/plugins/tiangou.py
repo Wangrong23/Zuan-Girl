@@ -38,7 +38,7 @@ async def _(session: CommandSession):
 
     # [CQ:at,qq=1902167838]
 
-    pattern = re.compile(ur'[1-9]([0-9]{4,10})')
+    pattern = re.compile('[1-9]([0-9]{4,10})')
     print(pattern.search(stripped_arg))
 
     if session.is_first_run:
