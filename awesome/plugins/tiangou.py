@@ -39,7 +39,7 @@ async def _(session: CommandSession):
     # [CQ:at,qq=1902167838]
 
     pattern = re.compile('[1-9]([0-9]{4,10})')
-    print(pattern.search(stripped_arg))
+    print(pattern.search(stripped_arg).group(0))
 
     if session.is_first_run:
         # 该命令第一次运行（第一次进入命令会话）
