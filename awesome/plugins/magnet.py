@@ -48,6 +48,8 @@ async def to_search(keyword):
     res = requests.get(url,headers=headers)
     ret = res.text
 
+    print(ret)
+
     itemTitleCode = re.findall(r'<a style="border-bottom:none;" href="/information/.*?" class="SearchListTitle_result_title">(.*?)</a>', ret, re.S)
     magnetCode = re.findall(r'<a style="border-bottom:none;" href="/information/(.*?)" class="SearchListTitle_result_title">', ret, re.S)
     fileType = re.findall(r'<em>文件格式：</em>(.*?)</div>', ret, re.S)
