@@ -2,6 +2,7 @@ import re
 import base64
 from urllib import parse
 import requests
+import time
 from nonebot import on_command,on_natural_language, CommandSession, NLPSession, IntentCommand
 from nonebot.helpers import render_expression
 
@@ -96,4 +97,5 @@ async def get_magnet(magnetCode):
     # res = requests.get(url,headers=headers)
     ret = res.text
     magnet = re.findall(r'<div class="Information_l_content"><a href=".*?" class="Information_magnet" id="down-url">(.*?)</a><div class="Information_download_tips">', ret, re.S)
+    time.sleep(3)
     return magnet
