@@ -39,10 +39,10 @@ async def to_search(keyword):
     headers = {
         'User-Agent':'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.6) Gecko/20091201 Firefox/3.5.6'
     }
-    bytesKeyWord = keyword.encode(encoding="utf-8")
-    decodeWord = base64.b64encode(bytesKeyWord)
-    keyCode = decodeWord.decode()
-    urlPart1 = "https://ciligou.app/search?word="+keyCode+'&sort=rele&p='
+    # bytesKeyWord = keyword.encode(encoding="utf-8")
+    # decodeWord = base64.b64encode(bytesKeyWord)
+    # keyCode = decodeWord.decode()
+    urlPart1 = "https://ciligou.app/search?word="+keyword+'&sort=rele&p='
 
     result_text = ''
     for pageNum in range(1,2):
