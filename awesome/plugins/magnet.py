@@ -6,15 +6,6 @@ import time
 from nonebot import on_command,on_natural_language, CommandSession, NLPSession, IntentCommand
 from nonebot.helpers import render_expression
 
-
-headers = {'Accept': 'text/html, application/xhtml+xml, image/jxr, */*',
-               'Accept - Encoding':'gzip, deflate',
-               'Accept-Language':'zh-Hans-CN, zh-Hans; q=0.5',
-               'Connection':'Keep-Alive',
-               'Host':'zhannei.baidu.com',
-               'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36 Edge/15.15063'}
-
-
 @on_command('搜磁力', aliases=('磁力搜索', '搜资源'))
 async def search(session: CommandSession):
     keyword = session.get('keyword', prompt='你想喷谁呢？')
@@ -23,8 +14,6 @@ async def search(session: CommandSession):
 
 @search.args_parser
 async def _(session: CommandSession):
-    print('session',session)
-
     # 去掉消息首尾的空白符
     stripped_arg = session.current_arg.strip()
 
@@ -44,13 +33,9 @@ async def _(session: CommandSession):
 async def to_search(keyword):
     url = "https://ciligou.app/search?word="+keyword+'&sort=rele&p=1'
 
-    print(url)
-
     # res = requests.get(url,headers=headers)
     res = requests.get(url)
     ret = res.text
-
-    print(ret)
 
     itemTitleCode = re.findall(r'<a style="border-bottom:none;" href="/information/.*?" class="SearchListTitle_result_title">(.*?)</a>', ret, re.S)
     magnetCode = re.findall(r'<a style="border-bottom:none;" href="/information/(.*?)" class="SearchListTitle_result_title">', ret, re.S)
@@ -92,7 +77,6 @@ async def to_search(keyword):
 
 async def get_magnet(magnetCode):
     url = "https://ciligou.app/information/"+magnetCode
-    print(url)
     res = requests.get(url)
     # res = requests.get(url,headers=headers)
     ret = res.text
