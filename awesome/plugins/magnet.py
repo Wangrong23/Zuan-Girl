@@ -1,7 +1,6 @@
 import re
 import base64
 from urllib import parse
-# from urllib import request
 import requests
 from nonebot import on_command,on_natural_language, CommandSession, NLPSession, IntentCommand
 from nonebot.helpers import render_expression
@@ -59,8 +58,10 @@ async def to_search(keyword):
     fileSizeList = []
     magnetList = []
 
+    itemAmount = len(itemTitleCode)
+
     result_text = ''
-    for m in range(5):
+    for m in range(itemAmount):
         a = re.sub('[+"]', '', itemTitleCode[m])
         b = parse.unquote(a)
         c = re.compile(r'<[^>]+>',re.S)
