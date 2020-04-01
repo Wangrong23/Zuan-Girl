@@ -7,6 +7,14 @@ from nonebot import on_command,on_natural_language, CommandSession, NLPSession, 
 from nonebot.helpers import render_expression
 
 
+headers = {'Accept': 'text/html, application/xhtml+xml, image/jxr, */*',
+               'Accept - Encoding':'gzip, deflate',
+               'Accept-Language':'zh-Hans-CN, zh-Hans; q=0.5',
+               'Connection':'Keep-Alive',
+               'Host':'zhannei.baidu.com',
+               'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36 Edge/15.15063'}
+
+
 @on_command('搜磁力', aliases=('磁力搜索', '搜资源'))
 async def search(session: CommandSession):
     keyword = session.get('keyword', prompt='你想喷谁呢？')
@@ -38,7 +46,7 @@ async def to_search(keyword):
 
     print(url)
 
-    res = requests.get(url)
+    res = requests.get(url,headers=headers)
     ret = res.text
 
     itemTitleCode = re.findall(r'<a style="border-bottom:none;" href="/information/.*?" class="SearchListTitle_result_title">(.*?)</a>', ret, re.S)
@@ -51,9 +59,7 @@ async def to_search(keyword):
     fileSizeList = []
     magnetList = []
 
-    itemAmount = len(itemTitleCode)
-
-    for m in range(itemAmount):
+    for m in range(5):
         result_text += '\r'
         a = re.sub('[+"]', '', itemTitleCode[m])
         b = parse.unquote(a)
@@ -82,7 +88,7 @@ async def to_search(keyword):
 async def get_magnet(magnetCode):
     url = "https://ciligou.app/information/"+magnetCode
     print(url)
-    res = requests.get(url)
+    res = requests.get(url,headers=headers)
     ret = res.text
     magnet = re.findall(r'<div class="Information_l_content"><a href=".*?" class="Information_magnet" id="down-url">(.*?)</a><div class="Information_download_tips">', ret, re.S)
     return magnet
