@@ -1,7 +1,8 @@
 import re
 import base64
 from urllib import parse
-from urllib import request
+# from urllib import request
+import requests
 from nonebot import on_command,on_natural_language, CommandSession, NLPSession, IntentCommand
 from nonebot.helpers import render_expression
 
@@ -39,19 +40,23 @@ async def to_search(keyword):
     headers = {
         'User-Agent':'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.6) Gecko/20091201 Firefox/3.5.6'
     }
-    bytesKeyWord = keyword.encode(encoding="utf-8")
+    # bytesKeyWord = keyword.encode(encoding="utf-8")
     # decodeWord = base64.b64encode(bytesKeyWord)
     # keyCode = decodeWord.decode()
-    urlPart1 = "https://ciligou.app/search?word="+bytesKeyWord+'&sort=rele&p='
+    urlPart1 = "https://ciligou.app/search?word="+keyword+'&sort=rele&p='
 
     result_text = ''
     for pageNum in range(1,2):
         result_text += '\r'
         url = urlPart1+str(pageNum)
         print(url)
-        req = request.Request(url=url,headers=headers)
-        res = request.urlopen(req)
-        ret = res.read().decode("utf-8")
+
+        res = requests.get(url)
+        ret = res.text
+
+        # req = request.Request(url=url,headers=headers)
+        # res = request.urlopen(req)
+        # ret = res.read().decode("utf-8")
 
         itemTitleCode = re.findall(r'<a style="border-bottom:none;" href="/information/.*?" class="SearchListTitle_result_title">(.*?)</a>', ret, re.S)
         magnetCode = re.findall(r'<a style="border-bottom:none;" href="/information/(.*?)" class="SearchListTitle_result_title">', ret, re.S)
