@@ -59,8 +59,8 @@ async def to_search(keyword):
     fileSizeList = []
     magnetList = []
 
+    result_text = ''
     for m in range(5):
-        result_text += '\r'
         a = re.sub('[+"]', '', itemTitleCode[m])
         b = parse.unquote(a)
         c = re.compile(r'<[^>]+>',re.S)
