@@ -45,7 +45,8 @@ async def to_search(keyword):
 
     print(url)
 
-    res = requests.get(url,headers=headers)
+    # res = requests.get(url,headers=headers)
+    res = requests.get(url)
     ret = res.text
 
     print(ret)
@@ -91,7 +92,8 @@ async def to_search(keyword):
 async def get_magnet(magnetCode):
     url = "https://ciligou.app/information/"+magnetCode
     print(url)
-    res = requests.get(url,headers=headers)
+    res = requests.get(url)
+    # res = requests.get(url,headers=headers)
     ret = res.text
     magnet = re.findall(r'<div class="Information_l_content"><a href=".*?" class="Information_magnet" id="down-url">(.*?)</a><div class="Information_download_tips">', ret, re.S)
     return magnet
