@@ -6,9 +6,10 @@ import time
 from nonebot import on_command,on_natural_language, CommandSession, NLPSession, IntentCommand
 from nonebot.helpers import render_expression
 
-@on_command('搜磁力', aliases=('磁力搜索', '搜资源'))
+@on_command('搜磁力', aliases=('磁力搜索', '搜种'))
 async def search(session: CommandSession):
-    keyword = session.get('keyword', prompt='你想喷谁呢？')
+    keyword = session.get('keyword', prompt='你想搜啥？')
+    await session.send("等会儿，我找找")
     result = await to_search(keyword)
     await session.send(result)
 
@@ -24,7 +25,7 @@ async def _(session: CommandSession):
         return
 
     if not stripped_arg:
-        session.pause('你想搜啥?')
+        session.pause('你想搜啥？')
 
     session.state[session.current_key] = stripped_arg
 
