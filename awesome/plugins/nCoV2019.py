@@ -16,8 +16,8 @@ import random
 import asyncio
 from urllib.parse import urljoin
 from datetime import datetime
-
-from nonebot import CommandSession, MessageSegment, on_command,on_natural_language, NLPSession, IntentCommand,scheduler
+import nonebot
+from nonebot import CommandSession, MessageSegment, on_command,on_natural_language, NLPSession, IntentCommand
 import requests
 
 _api = "https://lab.isaaclin.cn/nCoV/api/"
@@ -139,7 +139,7 @@ async def cough_news(session:CommandSession):
         await session.send('查询出错')
 
 
-@scheduler.scheduled_job('cron', minute='*/60')
+@nonebot.scheduler.scheduled_job('cron', minute='*/60')
 async def overall_poller(group_list):
     data = await nCoV2019.get_overall()
     if data:
@@ -148,7 +148,7 @@ async def overall_poller(group_list):
         print('nCoV2019 overall 更新失败')
 
 
-@scheduler.scheduled_job('cron', minute='*/20')
+@nonebot.scheduler.scheduled_job('cron', minute='*/20')
 async def news_poller(group_list,session:CommandSession):
     TAG = '2019-nCoV新闻'
     if not nCoV2019.cache['news']:
