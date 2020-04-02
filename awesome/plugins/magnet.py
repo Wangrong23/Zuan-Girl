@@ -49,7 +49,7 @@ async def to_search(keyword):
 
     itemAmount = len(itemTitleCode) if len(itemTitleCode)<=5 else 5
 
-    result_text = ''
+    result_text = '禁止搞颜色嗷~\r\r'
     for m in range(itemAmount):
         a = re.sub('[+"]', '', itemTitleCode[m])
         b = parse.unquote(a)
@@ -63,16 +63,14 @@ async def to_search(keyword):
 
         title = "".join(titleList[m])
         magnet = "".join(magnetList[m])
-        type = "".join(fileTypeList[m])
+        file_type = "".join(fileTypeList[m])
         size = "".join(fileSizeList[m])
 
-        result_text += "\r"
         result_text += ("资源名称："+title+"\r")
-        result_text += ("资源类型：" + type+"\r")
+        result_text += ("资源类型：" + file_type+"\r")
         result_text += ("资源大小：" + size+"\r")
         result_text += ("磁力链接："+magnet+"\r")
         result_text += ("\r")
-
     return result_text
 
 async def get_magnet(magnetCode):
