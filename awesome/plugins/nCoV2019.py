@@ -137,38 +137,3 @@ async def cough_news(session:CommandSession):
         await session.send(f'新冠活动报告：\n{msg}')
     else:
         await session.send('查询出错')
-
-
-@nonebot.scheduler.scheduled_job('cron', minute='*/60')
-async def overall_poller(group_list):
-    data = await nCoV2019.get_overall()
-    if data:
-        print('nCoV2019 overall 已更新')
-    else:
-        print('nCoV2019 overall 更新失败')
-
-
-@nonebot.scheduler.scheduled_job('cron', minute='*/20')
-async def news_poller(group_list,session:CommandSession):
-    TAG = '2019-nCoV新闻'
-    if not nCoV2019.cache['news']:
-        await nCoV2019.update_news()
-        print(f'{TAG}缓存为空，已加载至最新')
-        return
-
-    news = await nCoV2019.update_news()
-    if news:
-        print(f'检索到{len(news)}条新闻！')
-        msg = [ _make_msg(i) for i in news ]
-        bot = session.bot
-        for m in reversed(msg):
-            await asyncio.sleep(10)     # 降低发送频率，避免被腾讯ban
-            for group, sid in group_list.items():
-                try:
-                    await asyncio.sleep(0.5)
-                    await bot.send_group_msg(self_id=random.choice(sid), group_id=group, message=m)
-                    print(f'群{group} 投递{TAG}成功')
-                except Exception as e:
-                    print(f'Error：群{group} 投递{TAG}更新失败 {type(e)}')
-    else:
-        print(f'未检索到{TAG}更新！')
