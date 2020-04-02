@@ -17,7 +17,7 @@ import asyncio
 from urllib.parse import urljoin
 from datetime import datetime
 
-from nonebot import CommandSession, MessageSegment, on_command,on_natural_language, NLPSession, IntentCommand
+from nonebot import CommandSession, MessageSegment, on_command,on_natural_language, NLPSession, IntentCommand,scheduler
 import requests
 
 _api = "https://lab.isaaclin.cn/nCoV/api/"
@@ -87,12 +87,12 @@ class nCoV2019:
     #                 return each
     #     return None
 
-@on_command('咳', aliases=('咳咳', '咳咳咳', '咳咳咳咳'), only_to_me=False)
+@on_command('咳', only_to_me=False)
 async def cough_redirect(session):
     await session.send('请见丁香园： https://ncov.dxy.cn/ncovh5/view/pneumonia')
 
 
-# @on_command('咳咳', only_to_me=False)
+@on_command('咳咳', only_to_me=False)
 async def cough(session:CommandSession):
     session.finish('请见丁香园： https://ncov.dxy.cn/ncovh5/view/pneumonia')
     name = session.current_arg_text
@@ -124,7 +124,7 @@ def _make_msg(news_item):
     return "{infoSource}：【{title}】{pubDateStr}\n{summary}\n▲{sourceUrl}".format(**news_item)
 
 
-# @on_command('咳咳咳', only_to_me=False)
+@on_command('咳咳咳', only_to_me=False)
 async def cough_news(session:CommandSession):
     session.finish('请见丁香园： https://ncov.dxy.cn/ncovh5/view/pneumonia')
     # await nCoV2019.update_news()
@@ -139,7 +139,7 @@ async def cough_news(session:CommandSession):
         await session.send('查询出错')
 
 
-# @scheduled_job('cron', minute='*/20')
+@scheduler.scheduled_job('cron', minute='*/60')
 async def overall_poller(group_list):
     data = await nCoV2019.get_overall()
     if data:
@@ -148,7 +148,7 @@ async def overall_poller(group_list):
         print('nCoV2019 overall 更新失败')
 
 
-# @scheduled_job('cron', minute='*/5')
+@scheduler.scheduled_job('cron', minute='*/20')
 async def news_poller(group_list,session:CommandSession):
     TAG = '2019-nCoV新闻'
     if not nCoV2019.cache['news']:
