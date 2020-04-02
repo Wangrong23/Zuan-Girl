@@ -29,7 +29,6 @@ async def _(session: CommandSession):
     session.state[session.current_key] = stripped_arg
 
 
-
 async def to_search(keyword):
     url = "https://ciligou.app/search?word="+keyword+'&sort=rele&p=1'
 
@@ -47,7 +46,7 @@ async def to_search(keyword):
     fileSizeList = []
     magnetList = []
 
-    itemAmount = len(itemTitleCode)
+    itemAmount = len(itemTitleCode) if len(itemTitleCode)<=5 else 5
 
     result_text = ''
     for m in range(itemAmount):
@@ -81,5 +80,5 @@ async def get_magnet(magnetCode):
     # res = requests.get(url,headers=headers)
     ret = res.text
     magnet = re.findall(r'<div class="Information_l_content"><a href=".*?" class="Information_magnet" id="down-url">(.*?)</a><div class="Information_download_tips">', ret, re.S)
-    time.sleep(3)
+    time.sleep(2)
     return magnet
